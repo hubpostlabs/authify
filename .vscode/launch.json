@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "bun",
+      "request": "launch",
+      "name": "Launch Bun App (dev)",
+      "program": "${workspaceFolder}/app/index.ts",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": [
+        "run",
+        "--hot"
+      ],
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
