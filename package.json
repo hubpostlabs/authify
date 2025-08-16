@@ -1,7 +1,8 @@
 {
   "name": "authify",
   "scripts": {
-    "dev": "bun run --hot app/index.ts"
+    "dev": "bun run --hot app/index.ts",
+    "start": "bun run app/index.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.44.4",

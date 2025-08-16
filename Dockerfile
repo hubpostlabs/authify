@@ -24,4 +24,4 @@ EXPOSE 3000
 
 # The command to start your application
 # (Assuming your main file is index.ts inside the app directory)
-CMD ["bun", "run", "app/index.ts"]
+CMD ["bun", "run", "start"]
