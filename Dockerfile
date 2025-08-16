@@ -14,11 +14,7 @@ WORKDIR /usr/src/app
 
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 
-COPY --from=builder /usr/src/app/app ./app
-COPY --from=builder /usr/src/app/drizzle ./drizzle
-COPY --from=builder /usr/src/app/package.json ./
-COPY --from=builder /usr/src/app/drizzle.config.ts ./
-COPY --from=builder /usr/src/app/tsconfig.json ./
+COPY --from=builder /usr/src/app/app .
 
 # Switch to the non-root 'bun' user for better security
 USER bun
