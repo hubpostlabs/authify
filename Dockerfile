@@ -20,7 +20,7 @@ COPY --from=builder /usr/src/app/app .
 USER bun
 
 # Expose the port your app listens on
-EXPOSE 4000
+EXPOSE 3000
 
 # The command to start your application
 # (Assuming your main file is index.ts inside the app directory)
