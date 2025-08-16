@@ -9,6 +9,7 @@ import { Context } from "hono";
 
 const { createHandlers } = createFactory();
 const SESSION_DURATION = 2 * 24 * 60 * 60 * 1000
+const {HUBPOST_DOMAIN = "", NODE_ENV = ""} = process.env;
 
 const createUserSession = async (c: Context, id: string) => {
     try {
@@ -27,7 +28,7 @@ const createUserSession = async (c: Context, id: string) => {
         })
         return setCookie(c, "hb.session", sessionId, {
             path: "/",
-            domain: "localhost",
+            domain: NODE_ENV === "development" ? "" : `.${HUBPOST_DOMAIN}`,
             secure: true,
             httpOnly: true,
             expires: new Date(expiry),
