@@ -30,7 +30,7 @@ const createUserSession = async (c: Context, id: string) => {
             secure: true,
             httpOnly: true,
             expires: new Date(expiry),
-            sameSite: "Lax"
+            sameSite: "none"
         })
     } catch (error) {
         console.log("inside cookie", error)
