@@ -31,12 +31,17 @@ const register = createHandlers(async (c) => {
 
         const hashedPassword = await Bun.password.hash(password);
 
-        await db.insert(users).values({
+        const user  = await db.insert(users).values({
             firstName,
             lastName,
             email,
             password: hashedPassword
+        }).returning({
+            user_id: users.id,
         });
+
+        await createUserSession(c, user[0]?.user_id)
+
 
         return c.json({ message: "User registered successfully" }, 201);
     } catch (error) {
