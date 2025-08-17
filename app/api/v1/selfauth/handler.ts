@@ -19,8 +19,9 @@ const findUserByEmail = async (email: string) => {
 const register = createHandlers(async (c) => {
     try {
         const { firstName, lastName, email, password } = await c.req.json();
+        const alreadyRegistered = await findUserByEmail(email);
 
-        if ((await findUserByEmail(email)).email) {
+        if (alreadyRegistered?.email) {
             return c.json({
                 success: false,
                 message: 'User with this email already exists',
