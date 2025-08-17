@@ -30,7 +30,7 @@ const createUserSession = async (c: Context, id: string) => {
             secure: true,
             httpOnly: true,
             expires: new Date(expiry),
-            sameSite: "Lax"
+            sameSite: 'strict'
         })
     } catch (error) {
         return c.json({
