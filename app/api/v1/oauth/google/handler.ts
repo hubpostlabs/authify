@@ -44,7 +44,7 @@ const handleGoogle = createHandlers(async (c) => {
                     const url = JSON.parse(state)?.url;
                     console.log(user);
                     await createUserSession(c, user[0].id);
-                    return c.redirect(url, 301);
+                    return c.redirect(url);
                 }
             }
 
