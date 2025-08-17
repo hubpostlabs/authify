@@ -13,7 +13,7 @@ const handleGoogle = createHandlers(async (c) => {
     try {
         const { req } = c;
         const ui_redirect = req.query("returnTo");
-        const oauth = await getOAuth("google", `http://localhost:3000/account/v1/oauth/google/callback`)
+        const oauth = await getOAuth("google", `${process.env.AUTHIFY_MAIN_URL}/api/v1/account/oauth/google/callback`)
         if (req.path.includes("callback")) {
             const code = req.query("code") ?? "";
             const state = req.query("state");
