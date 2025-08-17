@@ -26,11 +26,11 @@ const createUserSession = async (c: Context, id: string) => {
 
         const cookie = setCookie(c, "hb.session", sessionId, {
             path: "/",
-            domain: NODE_ENV !== "production" ? "localhost" : `.${HUBPOST_DOMAIN}`,
+            domain: `.${HUBPOST_DOMAIN}`,
             secure: true,
             httpOnly: true,
             expires: new Date(expiry),
-            sameSite: 'strict'
+            sameSite: 'none'
         })
         console.log(cookie)
         return cookie;
