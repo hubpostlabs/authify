@@ -1,44 +1,15 @@
 import { db } from "@/db";
-import { sessions, users } from "@/db/schema";
-import { randomUUIDv7 } from "bun";
+import { users } from "@/db/schema";
+import { createUserSession } from "@/helper/session";
+
 import { eq } from "drizzle-orm";
 import { createFactory } from "hono/factory";
-import { setCookie } from "hono/cookie";
-import { getConnInfo } from 'hono/bun'
-import { Context } from "hono";
+
 
 const { createHandlers } = createFactory();
-const SESSION_DURATION = 2 * 24 * 60 * 60 * 1000
-const {HUBPOST_DOMAIN = "", NODE_ENV = ""} = process.env;
-
-const createUserSession = async (c: Context, id: string) => {
-    try {
-        const userAgent = c.req.header('User-Agent')
-        const ipAddress = getConnInfo(c);
-        const sessionId = randomUUIDv7();
-        const now = new Date();
-        const expiry = new Date(now.getTime() + SESSION_DURATION)
-
-        await db.insert(sessions).values({
-            sessionToken: sessionId,
-            expiresAt: expiry,
-            ipAddress: ipAddress.remote.address ?? "",
-            userAgent,
-            userId: id,
-        })
-        return setCookie(c, "hb.session", sessionId, {
-            path: "/",
-            domain: NODE_ENV === "development" ? "" : `.${HUBPOST_DOMAIN}`,
-            secure: true,
-            httpOnly: true,
-            expires: new Date(expiry),
-        })
 
 
-    } catch (error) {
-        
-    }
-}
+
 
 const findUserByEmail = async (email: string) => {
     const user = await db.select({ email: users.email, password: users.password, id: users.id }).from(users).where(eq(users.email, email)).limit(1);
@@ -87,7 +58,7 @@ const login = createHandlers(async (c) => {
             }, 401);
         }
 
-        const isValidPassword = await Bun.password.verify(password, user.password);
+        const isValidPassword = await Bun.password.verify(password, user.password as string);
         if (!isValidPassword) {
             return c.json({
                 success: false,
@@ -95,7 +66,7 @@ const login = createHandlers(async (c) => {
             }, 401);
         }
         const user_id = user.id;
-        const startSession = await createUserSession(c, user_id)
+        await createUserSession(c, user_id)
         return c.json({
             message: "Login successful",
         });

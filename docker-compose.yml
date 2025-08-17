@@ -4,7 +4,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: superayush
-      POSTGRES_PASSWORD: '!2002supriya' 
+      POSTGRES_PASSWORD: '2002supriya' 
       POSTGRES_DB: authify
     ports:
       - '5432:5432'
