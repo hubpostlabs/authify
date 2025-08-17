@@ -24,7 +24,7 @@ const createUserSession = async (c: Context, id: string) => {
             userId: id,
         })
 
-        const cookie = setCookie(c, "hb.session", sessionId, {
+        return setCookie(c, "hb.session", sessionId, {
             path: "/",
             domain: `.hubpost.xyz`,
             secure: true,
@@ -32,8 +32,6 @@ const createUserSession = async (c: Context, id: string) => {
             expires: new Date(expiry),
             sameSite: 'none'
         })
-        console.log(cookie)
-        return cookie;
     } catch (error) {
         return c.json({
             success: false,
