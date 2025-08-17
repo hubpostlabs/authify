@@ -6,9 +6,9 @@ import oauthRoutes from './api/v1/oauth/routes'
 const app = new Hono()
 
 
-app.route("/account/v1", authRoutes)
-app.route("/user/v1", sessionRoutes)
-app.route("/account/v1", oauthRoutes)
+app.route("/api/v1/account", authRoutes)
+app.route("/api/v1/user", sessionRoutes)
+app.route("/api/v1/account", oauthRoutes)
 app.get('/', (c) => {
   return c.text('Hello Hono!')
 })
