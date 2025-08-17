@@ -4,7 +4,6 @@ import { getOAuth } from "@/config/oauth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { createUserSession } from "@/helper/session";
-import { setCookie } from "hono/cookie";
 import { createFactory } from "hono/factory";
 
 const { createHandlers } = createFactory();
@@ -21,8 +20,8 @@ const handleGoogle = createHandlers(async (c) => {
             const ticket = await oauth?.verifyIdToken({
                 idToken: tokens?.tokens.id_token ?? "",
             });
-            const user = ticket?.getPayload();
-            const { email = "", family_name: lastName = "", given_name: firstName = "", picture: profilePic = "" } = user as any;
+            const userP = ticket?.getPayload();
+            const { email = "", family_name: lastName = "", given_name: firstName = "", picture: profilePic = "" } = userP as any;
             if (email && firstName) {
                 const user = await db.insert(users).values({
                     firstName,
@@ -43,6 +42,7 @@ const handleGoogle = createHandlers(async (c) => {
 
                 if (state) {
                     const url = JSON.parse(state)?.url;
+                    console.log(user);
                     await createUserSession(c, user[0].id);
                     return c.redirect(url, 301);
                 }
