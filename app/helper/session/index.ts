@@ -24,7 +24,7 @@ const createUserSession = async (c: Context, id: string) => {
             userId: id,
         })
 
-        return setCookie(c, "hb.session", sessionId, {
+        setCookie(c, "hb.session", sessionId, {
             path: "/",
             domain: ".hubpost.xyz",
             secure: true,
