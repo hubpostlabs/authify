@@ -1,7 +1,6 @@
 import { createFactory } from "hono/factory";
-import { getCookie } from "hono/cookie";
 import { db } from "@/db";
-import { sessions, users } from "@/db/schema";
+import { sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import authMiddleWare from "@/middleware/auth";
 const { createHandlers } = createFactory();
