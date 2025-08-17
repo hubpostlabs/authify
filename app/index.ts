@@ -13,4 +13,12 @@ app.get('/', (c) => {
   return c.text('Hello Hono!')
 })
 
+app.onError((err, c) => {
+  console.error(`${err}`)
+  return c.json({
+    messgae: "server failed",
+    error: err,
+  })
+})
+
 export default app
