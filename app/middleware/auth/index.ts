@@ -12,7 +12,7 @@ const { createMiddleware } = createFactory<any>();
 const authMiddleWare = createMiddleware(async (c, next) => {
     const cookie = getCookie(c, "hb.session");
     if (!cookie) {
-        c.json({
+        return c.json({
             message: "user not authenticated",
         }, 401)
         return;
