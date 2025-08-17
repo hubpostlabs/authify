@@ -7,7 +7,7 @@ import { setCookie } from "hono/cookie";
 
 
 const SESSION_DURATION = 2 * 24 * 60 * 60 * 1000
-const {HUBPOST_DOMAIN = "", NODE_ENV = ""} = process.env;
+const { HUBPOST_DOMAIN = "", NODE_ENV = "" } = process.env;
 const createUserSession = async (c: Context, id: string) => {
     try {
         const userAgent = c.req.header('User-Agent') ?? "";
@@ -15,7 +15,7 @@ const createUserSession = async (c: Context, id: string) => {
         const sessionId = randomUUIDv7();
         const now = new Date();
         const expiry = new Date(now.getTime() + SESSION_DURATION)
-       
+
         await db.insert(sessions).values({
             sessionToken: sessionId,
             expiresAt: expiry,
@@ -26,16 +26,15 @@ const createUserSession = async (c: Context, id: string) => {
 
         return setCookie(c, "hb.session", sessionId, {
             path: "/",
-            domain: `.hubpost.xyz`,
+            domain: ".hubpost.xyz",
             secure: true,
             httpOnly: true,
             expires: new Date(expiry),
-            sameSite: 'none'
         })
     } catch (error) {
         return c.json({
             success: false,
-            error: error 
+            error: error
         })
     }
 }
