@@ -36,7 +36,6 @@ const authMiddleWare = createMiddleware(async (c, next) => {
         return c.json({
             message: "user not found"
         })
-        return;
     }
     c.set("user", userResult[0]);
     c.set("session", session);
