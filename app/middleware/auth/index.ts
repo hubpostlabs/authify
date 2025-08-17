@@ -33,7 +33,7 @@ const authMiddleWare = createMiddleware(async (c, next) => {
         .where(eq(users.id, session.userId));
 
     if (userResult.length <= 0) {
-        c.json({
+        return c.json({
             message: "user not found"
         })
         return;

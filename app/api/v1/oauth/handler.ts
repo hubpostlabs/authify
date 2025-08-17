@@ -4,14 +4,14 @@ import handleGoogle from "./google/handler";
 
 const { createHandlers } = createFactory();
 
-const handleUserRequest = createHandlers(async (c) => {
+const handleUserRequest = createHandlers(async (c, next) => {
     try {
         const { provider = "" } = c.req.param() as any;
         console.log(provider);
 
         if (provider === "google") {
-            const googleResponse = await (handleGoogle[0] as any)(c) ;
-           return googleResponse;
+            const googleResponse = await (handleGoogle[0] as any)(c, next) ;
+            return googleResponse;
         }
         
         return c.json({ message: `Provider '${provider}' not supported.` }, 400);
