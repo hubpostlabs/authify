@@ -15,14 +15,16 @@ const createUserSession = async (c: Context, id: string) => {
         const sessionId = randomUUIDv7();
         const now = new Date();
         const expiry = new Date(now.getTime() + SESSION_DURATION)
-       
-        await db.insert(sessions).values({
+       console.log(ipAddress, "this ========>")
+        const saveCookie = await db.insert(sessions).values({
             sessionToken: sessionId,
             expiresAt: expiry,
             ipAddress,
             userAgent,
             userId: id,
         })
+
+        console.log("============> ", saveCookie)
 
 
         return setCookie(c, "hb.session", sessionId, {
