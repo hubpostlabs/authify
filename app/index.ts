@@ -6,7 +6,10 @@ import { cors } from 'hono/cors'
 
 const app = new Hono()
 app.use(cors({
-  origin: ['https://bubble.hubpost.xyz']
+  origin: ['https://bubble.hubpost.xyz'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  allowMethods: ['POST', 'GET', 'OPTIONS'],
+  credentials: true,
 }))
 // app.use(logger());
 app.route("/api/v1/account", authRoutes)

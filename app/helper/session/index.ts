@@ -27,7 +27,7 @@ const createUserSession = async (c: Context, id: string) => {
         console.log("============> ", saveCookie)
 
 
-        return setCookie(c, "hb.session", sessionId, {
+        setCookie(c, "hb.session", sessionId, {
             path: "/",
             domain: `.${HUBPOST_DOMAIN}`,
             secure: true,
