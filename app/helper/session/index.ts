@@ -11,7 +11,7 @@ const {HUBPOST_DOMAIN = "", NODE_ENV = ""} = process.env;
 const createUserSession = async (c: Context, id: string) => {
     try {
         const userAgent = c.req.header('User-Agent') ?? "";
-        const ipAddress = getConnInfo(c)?.remote.address ?? "";
+        const ipAddress = getConnInfo(c)?.remote?.address ?? "";
         const sessionId = randomUUIDv7();
         const now = new Date();
         const expiry = new Date(now.getTime() + SESSION_DURATION)
