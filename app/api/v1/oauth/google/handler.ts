@@ -1,4 +1,3 @@
-// google/handler.ts
 
 import { getOAuth } from "@/config/oauth";
 import { db } from "@/db";

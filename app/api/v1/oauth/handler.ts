@@ -1,4 +1,3 @@
-// handleUserRequest.ts
 import { createFactory } from "hono/factory";
 import handleGoogle from "./google/handler";
 
