@@ -16,13 +16,15 @@ const createUserSession = async (c: Context, id: string) => {
         const now = new Date();
         const expiry = new Date(now.getTime() + SESSION_DURATION)
        
-        await db.insert(sessions).values({
+        const serv = await db.insert(sessions).values({
             sessionToken: sessionId,
             expiresAt: expiry,
             ipAddress,
             userAgent,
             userId: id,
         })
+
+        console.log("service dowm", serv)
 
         return setCookie(c, "hb.session", sessionId, {
             path: "/",
