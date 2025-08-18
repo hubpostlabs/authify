@@ -1,5 +1,3 @@
-// src/middleware/auth.ts
-
 import { createFactory } from "hono/factory";
 import { getCookie } from "hono/cookie";
 import { db } from "@/db";
